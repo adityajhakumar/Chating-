@@ -1,3 +1,25 @@
+import subprocess
+import sys
+
+# List of required packages
+REQUIRED_PACKAGES = [
+    "streamlit",
+    "google-auth-oauthlib",
+    "google-auth-httplib2",
+    "google-api-python-client",
+    "requests",
+    "pillow",
+    "yt-dlp",  # You may want this for other functionalities like video download, if needed
+]
+
+# Check if packages are installed, and install them if not
+for package in REQUIRED_PACKAGES:
+    try:
+        __import__(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Now import the necessary libraries
 import streamlit as st
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
@@ -12,7 +34,7 @@ meet_links = {}
 
 # Google API Setup
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
-CLIENT_SECRET_FILE = "client_secret.json"
+CLIENT_SECRET_FILE = "client_secret.json"  # Ensure this is the correct path to your OAuth 2.0 client secrets file
 
 # Helper Functions
 def authenticate_google():
